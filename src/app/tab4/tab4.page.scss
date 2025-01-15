@@ -16,3 +16,42 @@ p#descripcion {
 .icon-information {
     margin-right: 5px;
 }
+
+
+/* Estilo para los contenedores de los anuncios */
+.announcement-item {
+    margin-bottom: 20px;
+    /* Espacio entre cada anuncio */
+    padding: 10px;
+    /* Opcional: agrega un relleno interno */
+    border: 1px solid #ccc;
+    /* Opcional: borde para cada anuncio */
+    border-radius: 8px;
+    /* Redondear las esquinas */
+    background-color: #f9f9f9;
+    /* Fondo suave */
+}
+
+/* Estilo para las imágenes */
+.announcement-item ion-img {
+    width: 90%;
+    /* Ocupa el ancho completo del contenedor */
+    height: auto;
+    /* Mantiene la proporción de la imagen */
+    border-radius: 8px;
+    /* Redondea las esquinas de la imagen */
+    margin-bottom: 10px;
+    /* Espacio entre la imagen y el texto */
+}
+
+/* Estilo para los títulos y descripciones */
+.announcement-item h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.announcement-item p {
+    font-size: 14px;
+    margin: 5px 0;
+    color: #666;
+}
