@@ -12,6 +12,7 @@ import { TeachablemachineService } from '../services/teachablemachine.service';
 import { addIcons } from 'ionicons';
 import { cloudUploadOutline } from 'ionicons/icons';
 
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
