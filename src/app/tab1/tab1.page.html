@@ -7,27 +7,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card class="ion-padding-bottom ion-margin-bottom">
+    <!-- CARGA DE DATOS - INICIO -->
+    @for (datum of dataList; track $index) {
+      <ion-card class="ion-padding-bottom ion-margin-bottom">
+        <img alt="reporte" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+        <ion-card-header>
+          <ion-card-title>Rerpote sobre: {{ datum?.score }}</ion-card-title>
+          <ion-card-subtitle>{{ datum?.date.split('T')[0] }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ datum?.opinion }}
+        </ion-card-content>
+      </ion-card>
 
-    <ion-card-header>
-      <ion-card-title>Reportes</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-
-      <ion-list>
-
-        <!-- CARGA DE DATOS - INICIO -->
-        @for (datum of dataList; track $index) {
-        <ion-item>
-          <ion-label> {{ datum?.score }} </ion-label>
-          <ion-label> {{ datum?.opinion }} </ion-label>
-        </ion-item>
-        }
-        <!-- CARGA DE DATOS - FIN -->
-
-      </ion-list>
-
-    </ion-card-content>
-  </ion-card>
+    }
+    <!-- CARGA DE DATOS - FIN -->
 </ion-content>
