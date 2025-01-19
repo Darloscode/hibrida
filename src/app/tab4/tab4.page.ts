@@ -20,7 +20,7 @@ import {
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
-import { megaphone, idCard, helpCircle } from 'ionicons/icons';
+import { informationCircle, megaphone, idCard, helpCircle, peopleCircle } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tab4',
@@ -95,7 +95,7 @@ export class Tab4Page {
 
 
   constructor() {
-    addIcons({ idCard, megaphone, helpCircle });
+    addIcons({ peopleCircle, informationCircle, idCard, megaphone, helpCircle });
   }
 
   // Métodos para abrir y cerrar los modales
