@@ -46,19 +46,19 @@ export class Tab2Page {
   /* Lista de predicciones */
   predictions: any[] = [];
 
-
-
-
   /* Instancie un formulario */
   myForm: FormGroup = new FormGroup({
     score: new FormControl("", Validators.required),
     opinion: new FormControl("", Validators.required),
     date: new FormControl(new Date().toISOString()) // Fecha actual en formato ISO
   })
+
   /* Nombre de la colección */
   collectionName = 'reviews';
+
   /* Arreglo con datos locales */
   dataList: any[] = [];
+
   /* Inyecte la dependencia a Firestore */
   constructor(private providerService: ProviderService, private teachablemachine: TeachablemachineService, private alertController: AlertController) {
     addIcons({ cloudUploadOutline });
@@ -70,9 +70,9 @@ export class Tab2Page {
       message: 'Gracias por tu opinión. Hemos recibido tu reporte correctamente.',
       buttons: ['OK']
     });
-
     await alert.present();
   }
+
   /* El método onSubmit para enviar los datos del formulario mediante el servicio 
   onSubmit() {
     console.log(this.myForm.value);
@@ -100,15 +100,13 @@ export class Tab2Page {
       alert('Hubo un error al enviar el reporte. Por favor, intenta nuevamente.');
     });
   }
+
   /* Al inicializar, carga los datos  */
   async ngOnInit() {
     await this.teachablemachine.loadModel()
     this.classLabels = this.teachablemachine.getClassLabels()
     this.modelLoaded.set(true)
   }
-
-
-
 
   /* El método onSubmit para enviar los datos del formulario mediante el servicio */
   onFileSelected(event: Event): void {
@@ -129,11 +127,34 @@ export class Tab2Page {
     }
   }
 
-  /* Método para obtener la predicción a partir de la imagen */
   async predict() {
     try {
       const image = this.imageElement.nativeElement;
       this.predictions = await this.teachablemachine.predict(image);
+  
+      if (this.predictions.length > 0) {
+        // Encontrar la predicción con mayor probabilidad
+        const bestPrediction = this.predictions.reduce((max, item) =>
+          item.probability > max.probability ? item : max
+          , this.predictions[0]);
+  
+        console.log("Mejor predicción:", bestPrediction.className, bestPrediction.probability);
+  
+        // Si la probabilidad es mayor al 70%, establecer automáticamente en score
+        if (bestPrediction.probability > 0.7) {
+          // Establecer el valor del score dependiendo de la clase predicha
+          let predictedClass = "";
+          if (bestPrediction.className.toLowerCase().includes("automovil")) {
+            predictedClass = "Automovil";
+          } else if (bestPrediction.className.toLowerCase().includes("animal")) {
+            predictedClass = "Animal";
+          } else {
+            predictedClass = "Desconocido"; // En caso de que la clase no sea ni Automovil ni Animal
+          }
+  
+          this.myForm.patchValue({ score: predictedClass });
+        }
+      }
     } catch (error) {
       console.error(error);
       alert('Error al realizar la predicción.');

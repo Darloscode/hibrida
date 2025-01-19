@@ -18,20 +18,13 @@
 
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
-        <ion-select formControlName="score" label="Calificación de reporte" placeholder="Seleccione un valor">
-          <ion-select-option value="bueno">Bueno</ion-select-option>
-          <ion-select-option value="regular">Regular</ion-select-option>
-          <ion-select-option value="malo">Malo</ion-select-option>
+        <ion-select formControlName="score" label="Tipo de reporte" placeholder="Seleccione un valor">
+          <ion-select-option value="Automovil">Automovil</ion-select-option>
+          <ion-select-option value="Animal">Animal </ion-select-option>
         </ion-select>
 
-        <ion-textarea formControlName="opinion" label="Información"
+        <ion-textarea formControlName="opinion" label="Descripción del reporte"
           placeholder="Agregue aquí su descripción"></ion-textarea>
-
-
-
-
-
-        <!--TAL VEZ AQUÍ HAY QUE PONER LA IMAGEN-->
 
         @if(imageReady()) {
         <ion-card-content>
@@ -62,7 +55,6 @@
         </ion-card-content>
         }
 
-
         <div class="button-container">
           <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
           <ion-button fill="outline" color="primary" (click)="fileInput.click()">
@@ -72,15 +64,7 @@
 
           <ion-button type="submit" [disabled]="!myForm.valid">Enviar</ion-button>
         </div>
-
-
       </form>
-
     </ion-card-content>
   </ion-card>
-
-
-
-
-
 </ion-content>
