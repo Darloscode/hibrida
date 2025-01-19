@@ -27,49 +27,51 @@
         <ion-textarea formControlName="opinion" label="Información"
           placeholder="Agregue aquí su descripción"></ion-textarea>
 
-        
 
 
 
-<!--TAL VEZ AQUÍ HAY QUE PONER LA IMAGEN-->
 
-@if(imageReady()) {
-  <ion-card-content>
+        <!--TAL VEZ AQUÍ HAY QUE PONER LA IMAGEN-->
 
-    <img #image [src]="imageUrl()" alt="Imagen seleccionada" />
+        @if(imageReady()) {
+        <ion-card-content>
 
-    <!-- CARGA DE PREDICCIÓN - INICIO -->
-    @if(modelLoaded()) {
+          <img #image [src]="imageUrl()" alt="Imagen seleccionada" />
 
-    <div class="ion-text-center ion-padding-top ion-padding-bottom">
-      <ion-button fill="outline" color="success" (click)="predict()">Predecir</ion-button>
-    </div>
+          <!-- CARGA DE PREDICCIÓN - INICIO -->
+          @if(modelLoaded()) {
 
-    <ion-list>
-      <ion-item>
-        <ion-label>Clases: {{ classLabels }} </ion-label>
-      </ion-item>
-      <!-- Itere sobre la lista de predicciones -->
-      @for (item of predictions; track $index) {
-      <ion-item>
-        <ion-label> {{ item?.className }} : {{ item?.probability | percent }} </ion-label>
-      </ion-item>
-      }
-    </ion-list>
+          <div class="ion-text-center ion-padding-top ion-padding-bottom">
+            <ion-button fill="outline" color="success" (click)="predict()">Predecir</ion-button>
+          </div>
 
-    }
-    <!-- CARGA DE PREDICCIÓN - FIN -->
-  </ion-card-content>
-  }
-  <div class="upload-button-container">
-    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
-    <ion-button fill="outline" color="primary" (click)="fileInput.click()">
-      <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
-      Subir Imagen
-    </ion-button>
-  </div>
+          <ion-list>
+            <ion-item>
+              <ion-label>Clases: {{ classLabels }} </ion-label>
+            </ion-item>
+            <!-- Itere sobre la lista de predicciones -->
+            @for (item of predictions; track $index) {
+            <ion-item>
+              <ion-label> {{ item?.className }} : {{ item?.probability | percent }} </ion-label>
+            </ion-item>
+            }
+          </ion-list>
 
-  <ion-button type="submit" [disabled]="!myForm.valid">Enviar</ion-button>
+          }
+          <!-- CARGA DE PREDICCIÓN - FIN -->
+        </ion-card-content>
+        }
+
+
+        <div class="button-container">
+          <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+          <ion-button fill="outline" color="primary" (click)="fileInput.click()">
+            <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+            Subir Imagen
+          </ion-button>
+
+          <ion-button type="submit" [disabled]="!myForm.valid">Enviar</ion-button>
+        </div>
 
 
       </form>
@@ -80,5 +82,5 @@
 
 
 
-    
+
 </ion-content>

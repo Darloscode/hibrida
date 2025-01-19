@@ -84,10 +84,11 @@ export class Tab2Page {
   onSubmit() {
     const formData = {
       ...this.myForm.value,
+      image: this.imageUrl(),    // Incluye la imagen codificada en Base64
       date: new Date().toISOString() // Agregar la fecha actual
     };
 
-    this.providerService.createDocument(this.collectionName, this.myForm.value).then(() => {
+    this.providerService.createDocument(this.collectionName, formData).then(() => {
       this.myForm.reset()
       // Limpia la imagen seleccionada
       this.imageUrl.set("");

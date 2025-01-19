@@ -7,3 +7,18 @@ img {
 ion-button {
     margin: 0 auto;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    /* Alinea los botones con espacio entre ellos */
+    gap: 16px;
+    /* Añade espacio entre los botones */
+    margin-top: 16px;
+    /* Espaciado superior */
+}
+
+.button-container ion-button {
+    flex: 1;
+    /* Asegura que ambos botones tengan el mismo tamaño */
+}
