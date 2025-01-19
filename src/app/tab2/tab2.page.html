@@ -11,20 +11,20 @@
   <ion-card class="ion-padding-bottom ion-margin-bottom">
 
     <ion-card-header>
-      <ion-card-title>Su opinión es importante</ion-card-title>
+      <ion-card-title>Agregue aquí la información de su reporte y una imagen</ion-card-title>
     </ion-card-header>
 
     <ion-card-content class="ion-text-center">
 
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
-        <ion-select formControlName="score" label="Calificación" placeholder="Seleccione un valor">
+        <ion-select formControlName="score" label="Calificación de reporte" placeholder="Seleccione un valor">
           <ion-select-option value="bueno">Bueno</ion-select-option>
           <ion-select-option value="regular">Regular</ion-select-option>
           <ion-select-option value="malo">Malo</ion-select-option>
         </ion-select>
 
-        <ion-textarea formControlName="opinion" label="Opinión"
+        <ion-textarea formControlName="opinion" label="Información"
           placeholder="Agregue aquí su descripción"></ion-textarea>
 
         

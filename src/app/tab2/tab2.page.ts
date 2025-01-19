@@ -2,7 +2,7 @@ import { Component, ViewChild, signal, ElementRef } from '@angular/core';
 import { /* Importe los componentes de la UI */
   IonCard, IonCardHeader, IonCardTitle, IonCardContent,
   IonSelect, IonSelectOption, IonTextarea, IonButton,
-  IonList, IonItem, IonLabel, IonHeader, IonToolbar, IonTitle, IonContent,  IonFab, IonFabButton, IonIcon
+  IonList, IonItem, IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonFab, IonFabButton, IonIcon
 } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 /* Importe el módulo para formularios reactivos */
@@ -18,13 +18,15 @@ import { TeachablemachineService } from '../services/teachablemachine.service';
 /* Importe el pipe */
 import { PercentPipe } from '@angular/common';
 
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [ IonIcon, IonFab, IonFabButton, PercentPipe, ReactiveFormsModule, /* Importe los componentes de la UI */
+  imports: [IonIcon, IonFab, IonFabButton, PercentPipe, ReactiveFormsModule, /* Importe los componentes de la UI */
     IonCard, IonCardHeader, IonCardTitle, IonCardContent,
     IonSelect, IonSelectOption, IonTextarea, IonButton,
     IonList, IonItem, IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent]
@@ -57,8 +59,18 @@ export class Tab2Page {
   /* Arreglo con datos locales */
   dataList: any[] = [];
   /* Inyecte la dependencia a Firestore */
-  constructor(private providerService: ProviderService, private teachablemachine: TeachablemachineService) { 
-        addIcons({ cloudUploadOutline });
+  constructor(private providerService: ProviderService, private teachablemachine: TeachablemachineService,  private alertController: AlertController) {
+    addIcons({ cloudUploadOutline });
+  }
+
+  async showAlert() {
+    const alert = await this.alertController.create({
+      header: '¡Reporte enviado!',
+      message: 'Gracias por tu opinión. Hemos recibido tu reporte correctamente.',
+      buttons: ['OK']
+    });
+  
+    await alert.present();
   }
 
   /* El método onSubmit para enviar los datos del formulario mediante el servicio 
@@ -72,7 +84,16 @@ export class Tab2Page {
   onSubmit() {
     this.providerService.createDocument(this.collectionName, this.myForm.value).then(() => {
       this.myForm.reset()
+      // Limpia la imagen seleccionada
+      this.imageUrl.set("");
+      this.imageReady.set(false);
+      // Muestra la alerta
+      this.showAlert();
+    }).catch(error => {
+      console.error('Error al enviar el reporte:', error);
+      alert('Hubo un error al enviar el reporte. Por favor, intenta nuevamente.');
     });
+
   }
   /* Al inicializar, carga los datos  */
   async ngOnInit() {
@@ -84,33 +105,33 @@ export class Tab2Page {
 
 
 
-    /* El método onSubmit para enviar los datos del formulario mediante el servicio */
-    onFileSelected(event: Event): void {
-      const input = event.target as HTMLInputElement;
-  
-      if (input.files && input.files.length > 0) {
-        const file = input.files[0];
-  
-        const reader = new FileReader();
-  
-        // Convertir el archivo a una URL base64 para mostrarlo en el html
-        reader.onload = () => {
-          this.imageUrl.set(reader.result as string)
-          this.imageReady.set(true)
-        };
-  
-        reader.readAsDataURL(file); // Leer el archivo como base64
-      }
-    }
+  /* El método onSubmit para enviar los datos del formulario mediante el servicio */
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
 
-    /* Método para obtener la predicción a partir de la imagen */
-    async predict() {
-      try {
-        const image = this.imageElement.nativeElement;
-        this.predictions = await this.teachablemachine.predict(image);
-      } catch (error) {
-        console.error(error);
-        alert('Error al realizar la predicción.');
-      }
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+
+      const reader = new FileReader();
+
+      // Convertir el archivo a una URL base64 para mostrarlo en el html
+      reader.onload = () => {
+        this.imageUrl.set(reader.result as string)
+        this.imageReady.set(true)
+      };
+
+      reader.readAsDataURL(file); // Leer el archivo como base64
     }
+  }
+
+  /* Método para obtener la predicción a partir de la imagen */
+  async predict() {
+    try {
+      const image = this.imageElement.nativeElement;
+      this.predictions = await this.teachablemachine.predict(image);
+    } catch (error) {
+      console.error(error);
+      alert('Error al realizar la predicción.');
+    }
+  }
 }
