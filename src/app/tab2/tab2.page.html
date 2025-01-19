@@ -61,7 +61,13 @@
     <!-- CARGA DE PREDICCIÓN - FIN -->
   </ion-card-content>
   }
-
+  <div class="upload-button-container">
+    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+    <ion-button fill="outline" color="primary" (click)="fileInput.click()">
+      <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+      Subir Imagen
+    </ion-button>
+  </div>
 
   <ion-button type="submit" [disabled]="!myForm.valid">Enviar</ion-button>
 
@@ -74,14 +80,5 @@
 
 
 
-    <!-- Referencia en plantilla #fileInput, callback para el evento change y oculte el elemento -->
-    <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
-
-
-    <!-- Disparo del evento click de fileInput -->
-    <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-      <ion-fab-button (click)="fileInput.click()">
-        <ion-icon name="cloud-upload-outline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+    
 </ion-content>
