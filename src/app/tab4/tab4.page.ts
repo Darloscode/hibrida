@@ -89,8 +89,9 @@ export class Tab4Page {
 
   // Información de "Acerca de"
   aboutInfo = {
-    descripcion: 'Esta aplicación tiene como objetivo mejorar la comunicación en la ciudadela integrando un modelo de IA.',
-    integrantes: ['Integrantes: ', 'Carlos Flores', 'Carlos Salazar', 'Cristopher Arroba'],
+    descripcion: 'Nuestra app móvil permite a los residentes de la urbanización enviar reportes de seguridad, mantenimiento y convivencia de manera rápida y sencilla. Con esta herramienta, la comunidad puede notificar incidentes, sugerencias o solicitudes en tiempo real, mejorando la comunicación entre vecinos y la administración.',
+    beneficios : ['✅ Comunicación eficiente: Evita malentendidos y agiliza la respuesta a problemas.', '✅ Mayor seguridad: Reporta incidentes de manera inmediata para una rápida solución.', '✅ Mejora la convivencia: Fomenta el respeto y la colaboración entre vecinos.', '✅ Transparencia y seguimiento: Recibe actualizaciones sobre el estado de tus reportes.'],
+    integrantes: ['Carlos Flores', 'Carlos Salazar', 'Cristopher Arroba'],
   };
 
 

@@ -33,15 +33,14 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-                <div *ngFor="let anuncio of anuncios" class="announcement-item">
-                  <ion-img [src]="anuncio.imagen"></ion-img>
-                  <ion-item lines="none">
-                    <ion-label>
-                      <h2>{{ anuncio.titulo }}</h2>
-                      <p>{{ anuncio.descripcion }}</p>
-                    </ion-label>
-                  </ion-item>
-                </div>
+              <ion-card *ngFor="let anuncio of anuncios" class="announcement-item">
+                <img alt="Silhouette of mountains" [src]="anuncio.imagen" />
+                <ion-card-header>
+                  <ion-card-title class="titulo_anuncio"> {{ anuncio.titulo }} </ion-card-title>
+                </ion-card-header>
+              
+                <ion-card-content class="subtitulo_anuncio"> {{ anuncio.descripcion }} </ion-card-content>
+              </ion-card>
               </ion-content>              
         </ng-template>
     </ion-modal>
@@ -65,7 +64,7 @@
         <ng-template>
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Información de Contactos</ion-title>
+                    <ion-title>Contactos</ion-title>
                     <ion-buttons slot="end">
                         <ion-button (click)="closeContactModal()">Cerrar</ion-button>
                     </ion-buttons>
@@ -114,6 +113,13 @@
             <h2>Descripción</h2>
             <p>{{ aboutInfo.descripcion }}</p>
       
+            <h2>Beneficios</h2>
+            <ul class="beneficios_list">
+              <li *ngFor="let beneficio of aboutInfo.beneficios">
+                {{ beneficio }}
+              </li>
+            </ul>
+
             <h2>Integrantes</h2>
             <ul>
               <li *ngFor="let integrante of aboutInfo.integrantes">

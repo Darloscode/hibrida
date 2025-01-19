@@ -4,7 +4,7 @@
     text-align: center;
 }
 
-p#descripcion {
+p {
     text-align: justify;
 }
 
@@ -17,6 +17,15 @@ p#descripcion {
     margin-right: 5px;
 }
 
+.titulo_anuncio, .subtitulo_anuncio {
+    color: black;
+}
+
+.beneficios_list {
+    list-style-type: none;
+    padding: 0%;
+
+}
 
 /* Estilo para los contenedores de los anuncios */
 .announcement-item {
