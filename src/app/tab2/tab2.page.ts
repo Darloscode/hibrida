@@ -76,16 +76,9 @@ export class Tab2Page {
   }
   /* Al inicializar, carga los datos  */
   async ngOnInit() {
-    this.loadData();
     await this.teachablemachine.loadModel()
     this.classLabels = this.teachablemachine.getClassLabels()
     this.modelLoaded.set(true)
-  }
-
-  loadData() {
-    this.providerService.readCollection(this.collectionName).subscribe((data) => {
-      this.dataList = data;
-    });
   }
 
 

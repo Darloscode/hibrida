@@ -1,57 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Teachable Machine
+      Historial de Reportes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Subir imágen</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card class="ion-padding-bottom ion-margin-bottom">
 
-  <!-- CARGA DE IMAGEN - INICIO -->
-  @if(imageReady()) {
-  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Reportes</ion-card-title>
+    </ion-card-header>
 
-    <img #image [src]="imageUrl()" alt="Imagen seleccionada" />
+    <ion-card-content>
 
-    <!-- CARGA DE PREDICCIÓN - INICIO -->
-    @if(modelLoaded()) {
+      <ion-list>
 
-    <div class="ion-text-center ion-padding-top ion-padding-bottom">
-      <ion-button fill="outline" color="success" (click)="predict()">Predecir</ion-button>
-    </div>
+        <!-- CARGA DE DATOS - INICIO -->
+        @for (datum of dataList; track $index) {
+        <ion-item>
+          <ion-label> {{ datum?.score }} </ion-label>
+          <ion-label> {{ datum?.opinion }} </ion-label>
+        </ion-item>
+        }
+        <!-- CARGA DE DATOS - FIN -->
 
-    <ion-list>
-      <ion-item>
-        <ion-label>Clases: {{ classLabels }} </ion-label>
-      </ion-item>
-      <!-- Itere sobre la lista de predicciones -->
-      @for (item of predictions; track $index) {
-      <ion-item>
-        <ion-label> {{ item?.className }} : {{ item?.probability | percent }} </ion-label>
-      </ion-item>
-      }
-    </ion-list>
+      </ion-list>
 
-    }
-    <!-- CARGA DE PREDICCIÓN - FIN -->
-
+    </ion-card-content>
   </ion-card>
-  }
-  <!-- CARGA DE IMAGEN - FIN -->
-
-  <!-- Referencia en plantilla #fileInput, callback para el evento change y oculte el elemento -->
-  <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
-
-  <!-- Disparo del evento click de fileInput -->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-    <ion-fab-button (click)="fileInput.click()">
-      <ion-icon name="cloud-upload-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
